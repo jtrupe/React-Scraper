@@ -11,7 +11,7 @@ module.exports = {
         });
     },
     findAllArticles: (req, res) => {
-        db.Articles.find().then(allArticles => {
+        db.Articles.find().populate("comments").then(allArticles => {
             res.json(allArticles);
         })
     },
