@@ -18,29 +18,38 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Homepage = () => {
-
+const Homepage = props => {
     const classes = useStyles();
-    const [articles, setArticles] = useState([]);
 
-    useEffect(() => {
-        API.findAllWhereUnsaved().then(responseArticles => {
-            setArticles(responseArticles.data);
+    const [selectedArticle, setSelectedArticle] = useState({ id: '', heading: '', info: '', link: '' });
+    const [isSelectedArticle, setIsSelectedArticle] = useState(false);
+
+    const handleGetSelectedArticle = articleId => {
+        API.findOneWhereUnsaved(articleId).then(selectedArticleResult => {
+            setSelectedArticle(selectedArticleResult.data);
+            setIsSelectedArticle(false);
         })
-    }, []);
+    }
 
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                {
-                    articles.length !== 0 ?
-                        <Grid item xs={12}>
-                            {articles.map((a) =>{
-                                return <Card articleObject={a}/>
-                            })}
-                        </Grid> : <p>Scrape to get some articles</p>
-                }
-
+                {isSelectedArticle === true ? (
+                        <Card isSelectedArticle={isSelectedArticle} articleObject={selectedArticle} />
+                ) : (
+                        <>
+                            {props.articles.length !== 0 ?
+                                <Grid item xs={12}>
+                                    {props.articles.map((a) => {
+                                        return <Card key={a._id} handleGetSelectedArticle={handleGetSelectedArticle}
+                                            handleSaveArticle={props.handleSaveArticle}
+                                            articleObject={a} />;
+                                    })}
+                                </Grid> : (
+                                    <p>Scrape to get some articles</p>
+                                )}
+                        </>
+                    )}
             </Grid>
         </div>
     );

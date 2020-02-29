@@ -9,6 +9,10 @@ app.route('/')
 
 app.route('/saved').get(articleController.findSavedArticles);
 
-app.route('/:articleId').put(articleController.saveArticle);
+app.route('/:articleId')
+    .get(articleController.findOneWhereUnsaved)
+    .put(articleController.saveArticle);
+
+
 
 module.exports = app;

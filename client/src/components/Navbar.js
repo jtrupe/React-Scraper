@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
     const classes = useStyles();
 
     const [currentPage, setCurrentPage] = useState(window.location.pathname);
@@ -37,7 +37,7 @@ export default function ButtonAppBar() {
           </Typography>
                     {currentPage === "/" ? (
                         <>
-                            <Button color="inherit">Scrape</Button>
+                            <Button onClick={props.handleScrape} color="inherit">Scrape</Button>
                             <Button
                                 onClick={() => {
                                     setCurrentPage('/saved');

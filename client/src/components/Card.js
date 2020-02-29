@@ -20,10 +20,13 @@ const useStyles = makeStyles({
 });
 
 export default function MediaCard(props) {
+    // console.log("PROPS:");
+    console.log(props);
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
+            {props.i}
             <CardActionArea>
                 <Link href={props.articleObject.link} target='_blank'>
                     <CardContent>
@@ -35,15 +38,12 @@ export default function MediaCard(props) {
                         </Typography>
                     </CardContent>
                 </Link>
-
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Save
-        </Button>
-                <Button size="small" color="primary">
-                    Comment
-        </Button>
+                <Button onClick={() => props.handleSaveArticle(props.articleObject._id)} size="small" color="primary">
+                    Save </Button>
+                <Button onClick={() => {props.handleGetSelectedArticle(props.articleObject._id)}} size="small" color="primary">
+                    Comment </Button>
             </CardActions>
         </Card>
     );

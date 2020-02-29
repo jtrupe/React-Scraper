@@ -11,7 +11,7 @@ module.exports = {
         });
     },
     findAllArticles: (req, res) => {
-        db.Articles.find().populate("comments").then(allArticles => {
+        db.Articles.find({ isSaved: false }).populate("comments").then(allArticles => {
             res.json(allArticles);
         })
     },
@@ -23,12 +23,17 @@ module.exports = {
     saveArticle: (req, res) => {
         db.Articles.updateOne(
             {
-                _id : req.params.articleId
+                _id: req.params.articleId
             },
             {
                 isSaved: true
-            }).then(savedArticle =>{
+            }).then(savedArticle => {
                 res.json(savedArticle)
             })
     },
+    findOneWhereUnsaved: (req,res) => {
+        db.Articles.findOne({_id: req.params.articleId, isSaved: false}).then(selectedArticle=> {
+            res.json(selectedArticle);
+        })
+    }
 };
