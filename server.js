@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 //for production
+//comment for commit
 if(process.env.NODE_ENV==="production"){
     app.use(express.static("client/build"));
 }
