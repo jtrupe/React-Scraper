@@ -32,7 +32,7 @@ module.exports = {
             })
     },
     findOneWhereUnsaved: (req,res) => {
-        db.Articles.findOne({_id: req.params.articleId, isSaved: false}).then(selectedArticle=> {
+        db.Articles.findOne({_id: req.params.articleId, isSaved: false}).populate("comments").then(selectedArticle=> {
             res.json(selectedArticle);
         })
     }

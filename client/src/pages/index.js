@@ -27,7 +27,7 @@ const Homepage = props => {
     const handleGetSelectedArticle = articleId => {
         API.findOneWhereUnsaved(articleId).then(selectedArticleResult => {
             setSelectedArticle(selectedArticleResult.data);
-            setIsSelectedArticle(false);
+            setIsSelectedArticle(true);
         })
     }
 
@@ -35,13 +35,19 @@ const Homepage = props => {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 {isSelectedArticle === true ? (
-                        <Card isSelectedArticle={isSelectedArticle} articleObject={selectedArticle} />
+                    <>
+                        <Card articleObject={selectedArticle} />
+                        {selectedArticle.comments.map(s => {
+                            return <Card isSelectedArticle={isSelectedArticle} comment={s.comment} />;
+                        })}
+                    </>
                 ) : (
                         <>
                             {props.articles.length !== 0 ?
                                 <Grid item xs={12}>
                                     {props.articles.map(a => {
                                         return <Card key={a._id} handleGetSelectedArticle={handleGetSelectedArticle}
+                                            isSelectedArticle={isSelectedArticle}
                                             handleSaveArticle={props.handleSaveArticle}
                                             articleObject={a} />;
                                     })}

@@ -26,25 +26,35 @@ export default function MediaCard(props) {
 
     return (
         <Card className={classes.root}>
-            {props.i}
-            <CardActionArea>
-                <Link href={props.articleObject.link} target='_blank'>
+            {props.isSelectedArticle === true ? (
+                <>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            {props.articleObject.heading}
+                            {props.comment}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {props.articleObject.info}
-                        </Typography>
-                    </CardContent>
-                </Link>
-            </CardActionArea>
-            <CardActions>
-                <Button onClick={() => props.handleSaveArticle(props.articleObject._id)} size="small" color="primary">
-                    Save </Button>
-                <Button onClick={() => {props.handleGetSelectedArticle(props.articleObject._id)}} size="small" color="primary">
-                    Comment </Button>
-            </CardActions>
+                    </CardContent></>
+            ) : (
+                    <>
+                        <CardActionArea>
+                            <Link href={props.articleObject.link} target='_blank'>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        {props.articleObject.heading}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {props.articleObject.info}
+                                    </Typography>
+                                </CardContent>
+                            </Link>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button onClick={() => props.handleSaveArticle(props.articleObject._id)} size="small" color="primary">
+                                Save </Button>
+                            <Button onClick={() => { props.handleGetSelectedArticle(props.articleObject._id) }} size="small" color="primary">
+                                Comment </Button>
+                        </CardActions>
+                    </>
+                )}
         </Card>
     );
 }

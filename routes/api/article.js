@@ -1,5 +1,5 @@
 const app = require('express').Router();
-const articleController = require('../../controllers/articleController.js')
+const articleController = require('../../controllers/articleController')
 
 app.route('/')
     .get(articleController.findAllArticles)
