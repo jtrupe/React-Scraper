@@ -40,7 +40,7 @@ const Homepage = props => {
                         <>
                             {props.articles.length !== 0 ?
                                 <Grid item xs={12}>
-                                    {props.articles.map((a) => {
+                                    {props.articles.map(a => {
                                         return <Card key={a._id} handleGetSelectedArticle={handleGetSelectedArticle}
                                             handleSaveArticle={props.handleSaveArticle}
                                             articleObject={a} />;
